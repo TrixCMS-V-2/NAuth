@@ -1,7 +1,7 @@
 const NAuth = require('./build/index')
 
 // On créer
-const auth = new NAuth("https://example.domain/", 10000)
+const auth = new NAuth("https://example.com/", 10000)
 
 // On vérifie que le compte "admin" existe.
 auth.exists("admin")
@@ -24,6 +24,7 @@ auth.exists("admin")
                         // Ce compte à validé son addresse email.
                         return console.log('Ce compte n\'est pas confirmé')
                     }
+
 
                     // Vous pouvez récupérer les informations sur le compte :
                     const uuid = profile.uuid

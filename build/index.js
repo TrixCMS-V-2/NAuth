@@ -39,107 +39,122 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 var utils_1 = __importDefault(require("./utils"));
-// import path from 'path'
 var got_1 = __importDefault(require("got"));
 var profile_1 = __importDefault(require("./profile"));
 var InvalidCredentials_1 = __importDefault(require("./exceptions/InvalidCredentials"));
-module.exports = /** @class */ (function () {
-    /**
-     *
-     * @param url Website url
-     * @param timeout
-     */
+module.exports = (function () {
     function NAuth(url, timeout) {
         if (timeout === void 0) { timeout = 10000; }
+        Object.defineProperty(this, "_url", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "_timeout", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(this, "_publicKey", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
         this._url = new URL(url);
         this._timeout = timeout;
     }
-    /**
-     * Login a user with his password
-     * @param username
-     * @param password
-     */
-    NAuth.prototype.login = function (username, password) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function () {
-            var response, json;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!!this._publicKey) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.updatePublicKey()];
-                    case 1:
-                        _b.sent();
-                        _b.label = 2;
-                    case 2:
-                        this._url.pathname = '/api/auth/v1/get';
-                        return [4 /*yield*/, got_1.default(this._url.toString(), {
-                                method: 'POST',
-                                timeout: this._timeout,
-                                json: {
-                                    data: (_a = this._publicKey) === null || _a === void 0 ? void 0 : _a.encrypt({ username: username, password: password }, 'base64')
-                                }
-                            })];
-                    case 3:
-                        response = _b.sent();
-                        json = JSON.parse(response.body);
-                        if (json && json.exist) {
-                            return [2 /*return*/, new profile_1.default(json.profile)];
-                        }
-                        throw new InvalidCredentials_1.default();
-                }
-            });
-        });
-    };
-    /**
-     * Check if a username exists
-     * @param username
-     */
-    NAuth.prototype.exists = function (username) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function () {
-            var response, json;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!!this._publicKey) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.updatePublicKey()];
-                    case 1:
-                        _b.sent();
-                        _b.label = 2;
-                    case 2:
-                        this._url.pathname = '/api/auth/v1/check';
-                        return [4 /*yield*/, got_1.default(this._url.toString(), {
-                                method: 'POST',
-                                timeout: this._timeout,
-                                json: {
-                                    data: (_a = this._publicKey) === null || _a === void 0 ? void 0 : _a.encrypt(username, 'base64')
-                                }
-                            })];
-                    case 3:
-                        response = _b.sent();
-                        json = JSON.parse(response.body);
-                        return [2 /*return*/, !!(json && json.exist)];
-                }
-            });
-        });
-    };
-    NAuth.prototype.updatePublicKey = function () {
-        return __awaiter(this, void 0, void 0, function () {
+    Object.defineProperty(NAuth.prototype, "login", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function (username, password) {
             var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        this.url.pathname = '/api/auth/v1/public/key';
-                        _a = this;
-                        return [4 /*yield*/, utils_1.default.getPublicKey(this.url.toString(), this.timeout)];
-                    case 1:
-                        _a._publicKey = _b.sent();
-                        return [2 /*return*/];
-                }
+            return __awaiter(this, void 0, void 0, function () {
+                var response, json;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (!!this._publicKey) return [3, 2];
+                            return [4, this.updatePublicKey()];
+                        case 1:
+                            _b.sent();
+                            _b.label = 2;
+                        case 2: return [4, got_1.default('api/auth/v1/get', {
+                                method: 'POST',
+                                timeout: this._timeout,
+                                prefixUrl: this._url.toString(),
+                                json: {
+                                    data: (_a = this._publicKey) === null || _a === void 0 ? void 0 : _a.encrypt({ username: username, password: password }, 'base64'),
+                                },
+                            })];
+                        case 3:
+                            response = _b.sent();
+                            json = JSON.parse(response.body);
+                            if (json && json.exist) {
+                                return [2, new profile_1.default(json.profile)];
+                            }
+                            throw new InvalidCredentials_1.default();
+                    }
+                });
             });
-        });
-    };
+        }
+    });
+    Object.defineProperty(NAuth.prototype, "exists", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function (username) {
+            var _a;
+            return __awaiter(this, void 0, void 0, function () {
+                var response, json;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (!!this._publicKey) return [3, 2];
+                            return [4, this.updatePublicKey()];
+                        case 1:
+                            _b.sent();
+                            _b.label = 2;
+                        case 2: return [4, got_1.default('api/auth/v1/check', {
+                                method: 'POST',
+                                timeout: this._timeout,
+                                prefixUrl: this._url.toString(),
+                                json: {
+                                    data: (_a = this._publicKey) === null || _a === void 0 ? void 0 : _a.encrypt(username, 'base64'),
+                                },
+                            })];
+                        case 3:
+                            response = _b.sent();
+                            json = JSON.parse(response.body);
+                            return [2, !!(json && json.exist)];
+                    }
+                });
+            });
+        }
+    });
+    Object.defineProperty(NAuth.prototype, "updatePublicKey", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            _a = this;
+                            return [4, utils_1.default.getPublicKey(this.url, this.timeout)];
+                        case 1:
+                            _a._publicKey = _b.sent();
+                            return [2];
+                    }
+                });
+            });
+        }
+    });
     Object.defineProperty(NAuth.prototype, "url", {
         get: function () {
             return this._url;

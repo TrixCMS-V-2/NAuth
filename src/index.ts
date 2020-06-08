@@ -33,13 +33,13 @@ export = class NAuth {
             await this.updatePublicKey()
         }
 
-        this._url.pathname = '/api/auth/v1/get'
-        const response = await got(this._url.toString(), {
+        const response = await got('api/auth/v1/get', {
             method: 'POST',
             timeout: this._timeout,
+            prefixUrl: this._url.toString(),
             json: {
-                data: this._publicKey?.encrypt({ username, password }, 'base64')
-            }
+                data: this._publicKey?.encrypt({ username, password }, 'base64'),
+            },
         })
 
         const json: JSONLogin = JSON.parse(response.body)
@@ -60,13 +60,13 @@ export = class NAuth {
             await this.updatePublicKey()
         }
 
-        this._url.pathname = '/api/auth/v1/check'
-        const response = await got(this._url.toString(), {
+        const response = await got('api/auth/v1/check', {
             method: 'POST',
             timeout: this._timeout,
+            prefixUrl: this._url.toString(),
             json: {
-                data: this._publicKey?.encrypt(username, 'base64')
-            }
+                data: this._publicKey?.encrypt(username, 'base64'),
+            },
         })
 
         const json = JSON.parse(response.body)
@@ -75,8 +75,7 @@ export = class NAuth {
     }
 
     private async updatePublicKey () {
-        this.url.pathname = '/api/auth/v1/public/key'
-        this._publicKey = await Utils.getPublicKey(this.url.toString(), this.timeout)
+        this._publicKey = await Utils.getPublicKey(this.url, this.timeout)
     }
 
     get url () {

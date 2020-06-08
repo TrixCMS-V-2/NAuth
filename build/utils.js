@@ -41,27 +41,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var got_1 = __importDefault(require("got"));
 var node_rsa_1 = __importDefault(require("node-rsa"));
-var Utils = /** @class */ (function () {
+var Utils = (function () {
     function Utils() {
     }
-    Utils.getPublicKey = function (url, timeout) {
-        return __awaiter(this, void 0, void 0, function () {
-            var response;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, got_1.default(url, {
-                            method: 'POST',
-                            timeout: timeout
-                        })];
-                    case 1:
-                        response = _a.sent();
-                        return [2 /*return*/, new node_rsa_1.default(response.body, "public", {
-                                encryptionScheme: 'pkcs1'
+    Object.defineProperty(Utils, "getPublicKey", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function (url, timeout) {
+            return __awaiter(this, void 0, void 0, function () {
+                var response;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4, got_1.default('api/auth/v1/public/key', {
+                                method: 'POST',
+                                prefixUrl: url.toString(),
+                                timeout: timeout,
                             })];
-                }
+                        case 1:
+                            response = _a.sent();
+                            return [2, new node_rsa_1.default(response.body, "public", {
+                                    encryptionScheme: 'pkcs1',
+                                })];
+                    }
+                });
             });
-        });
-    };
+        }
+    });
     return Utils;
 }());
 exports.default = Utils;

@@ -13,10 +13,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var InvalidCredentials = /** @class */ (function (_super) {
+var InvalidCredentials = (function (_super) {
     __extends(InvalidCredentials, _super);
     function InvalidCredentials() {
         var _this = _super.call(this) || this;
+        Object.defineProperty(_this, "code", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
         _this.message = "Invalid credentials";
         _this.code = 'INVALID_CREDENTIALS';
         return _this;
