@@ -13,7 +13,7 @@ export default class Profile {
     private _token;
     private _createdAt;
     private _updatedAt;
-    constructor(id: string, uuid: string, username: string, email: string, money: number, hasAvatar: boolean, isBanned: boolean, banReason: string | null, isConfirmed: boolean, hasTwoAuth: boolean, ranks: string[], token: string, createdAt: Date, updatedAt: Date);
+    constructor(jsonProfile: JSONProfile);
     get id(): string;
     get uuid(): string;
     get username(): string;

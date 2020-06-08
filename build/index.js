@@ -66,7 +66,7 @@ module.exports = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        if (!!this.publicKey) return [3 /*break*/, 2];
+                        if (!!this._publicKey) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.updatePublicKey()];
                     case 1:
                         _b.sent();
@@ -77,16 +77,14 @@ module.exports = /** @class */ (function () {
                                 method: 'POST',
                                 timeout: this._timeout,
                                 json: {
-                                    data: (_a = this.publicKey) === null || _a === void 0 ? void 0 : _a.encrypt({
-                                        username: username, password: password
-                                    }, 'base64')
+                                    data: (_a = this._publicKey) === null || _a === void 0 ? void 0 : _a.encrypt({ username: username, password: password }, 'base64')
                                 }
                             })];
                     case 3:
                         response = _b.sent();
                         json = JSON.parse(response.body);
                         if (json && json.exist) {
-                            return [2 /*return*/, new profile_1.default(json.profile.id, json.profile.uuid, json.profile.userName, json.profile.userMail, json.profile.money, json.profile.has_avatar, json.profile.accountBanned, json.profile.banned_reason, json.profile.accountConfirmed, json.profile["2fa"], json.profile.userRank.split(' | '), json.profile.token, new Date(json.profile.created_at), new Date(json.profile.updated_at))];
+                            return [2 /*return*/, new profile_1.default(json.profile)];
                         }
                         throw new InvalidCredentials_1.default();
                 }
@@ -104,7 +102,7 @@ module.exports = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        if (!!this.publicKey) return [3 /*break*/, 2];
+                        if (!!this._publicKey) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.updatePublicKey()];
                     case 1:
                         _b.sent();
@@ -115,7 +113,7 @@ module.exports = /** @class */ (function () {
                                 method: 'POST',
                                 timeout: this._timeout,
                                 json: {
-                                    data: (_a = this.publicKey) === null || _a === void 0 ? void 0 : _a.encrypt(username, 'base64')
+                                    data: (_a = this._publicKey) === null || _a === void 0 ? void 0 : _a.encrypt(username, 'base64')
                                 }
                             })];
                     case 3:
@@ -136,7 +134,7 @@ module.exports = /** @class */ (function () {
                         _a = this;
                         return [4 /*yield*/, utils_1.default.getPublicKey(this.url.toString(), this.timeout)];
                     case 1:
-                        _a.publicKey = _b.sent();
+                        _a._publicKey = _b.sent();
                         return [2 /*return*/];
                 }
             });

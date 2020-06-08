@@ -4,7 +4,7 @@ declare const _default: {
     new (url: string, timeout?: number): {
         _url: URL;
         _timeout: number;
-        publicKey: NodeRSA | undefined;
+        _publicKey: NodeRSA | undefined;
         /**
          * Login a user with his password
          * @param username

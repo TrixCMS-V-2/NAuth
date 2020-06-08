@@ -1,7 +1,7 @@
 const NAuth = require('./build/index')
 
 // On créer
-const auth = new NAuth("https://domain.website.extension/", 10000)
+const auth = new NAuth("https://example.domain/", 10000)
 
 // On vérifie que le compte "admin" existe.
 auth.exists("admin")
@@ -35,7 +35,7 @@ auth.exists("admin")
                 })
                 .catch((err) => {
                     if (err.code === 'INVALID_CREDENTIALS') {
-                        // Les identifiants du compte sont invalident
+                        // Les identifiants du compte sont invalides
                         console.log("Les identifiants du compte sont invalident.")
                     } else {
                         // Une autre erreur est survenue.
@@ -46,4 +46,7 @@ auth.exists("admin")
             // Le compte "admin" n'existe pas !
             console.log('Ce compte n\'existe pas')
         }
+    })
+    .catch(err => {
+        console.log("Une erreur est survenue.")
     })

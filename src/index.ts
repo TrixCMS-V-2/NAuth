@@ -5,33 +5,13 @@ import got from 'got'
 import Profile from './profile'
 import InvalidCredentials from './exceptions/InvalidCredentials'
 
-declare interface JSONProfile {
-    exist: boolean,
-    profile: {
-        id: string,
-        userName: string,
-        userMail: string,
-        uuid: string,
-        money: number,
-        accountBanned: boolean,
-        banned_reason: string | null,
-        accountConfirmed: boolean,
-        "2fa": boolean,
-        userRank: string,
-        has_avatar: boolean,
-        token: string,
-        created_at: string,
-        updated_at: string
-    }
-}
-
 export = class NAuth {
 
     private _url: URL
 
     private _timeout: number
 
-    private publicKey: NodeRSA | undefined
+    private _publicKey: NodeRSA | undefined
 
     /**
      * 
@@ -49,7 +29,7 @@ export = class NAuth {
      * @param password 
      */
     public async login (username: string, password: string): Promise<Profile> {
-        if (!this.publicKey) {
+        if (!this._publicKey) {
             await this.updatePublicKey()
         }
 
@@ -58,30 +38,14 @@ export = class NAuth {
             method: 'POST',
             timeout: this._timeout,
             json: {
-                data: this.publicKey?.encrypt({
-                    username: username, password: password
-                }, 'base64')
+                data: this._publicKey?.encrypt({ username, password }, 'base64')
             }
         })
 
-        const json: JSONProfile = JSON.parse(response.body)
+        const json: JSONLogin = JSON.parse(response.body)
 
         if (json && json.exist) {
-            return new Profile(json.profile.id,
-                json.profile.uuid,
-                json.profile.userName,
-                json.profile.userMail,
-                json.profile.money,
-                json.profile.has_avatar,
-                json.profile.accountBanned,
-                json.profile.banned_reason,
-                json.profile.accountConfirmed,
-                json.profile["2fa"],
-                json.profile.userRank.split(' | '),
-                json.profile.token,
-                new Date(json.profile.created_at),
-                new Date(json.profile.updated_at)
-            )
+            return new Profile(json.profile)
         }
 
         throw new InvalidCredentials()
@@ -92,7 +56,7 @@ export = class NAuth {
      * @param username 
      */
     public async exists (username: string): Promise<boolean> {
-        if (!this.publicKey) {
+        if (!this._publicKey) {
             await this.updatePublicKey()
         }
 
@@ -101,7 +65,7 @@ export = class NAuth {
             method: 'POST',
             timeout: this._timeout,
             json: {
-                data: this.publicKey?.encrypt(username, 'base64')
+                data: this._publicKey?.encrypt(username, 'base64')
             }
         })
 
@@ -112,7 +76,7 @@ export = class NAuth {
 
     private async updatePublicKey () {
         this.url.pathname = '/api/auth/v1/public/key'
-        this.publicKey = await Utils.getPublicKey(this.url.toString(), this.timeout)
+        this._publicKey = await Utils.getPublicKey(this.url.toString(), this.timeout)
     }
 
     get url () {

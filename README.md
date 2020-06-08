@@ -1,24 +1,96 @@
-# NodeAuth
+# NAuth
 
-NodeAuth is an library for TrxCMS, for using custom auth between NodeJS and TrixCMS By NodeNXT. (For exemple : For your modded minecraft project...)
 
-#### Warning : You need install the "Auth" Plugin on your dashboard https://trixcms.eu/marketplace/resource/plugin/6
+NAuth est une librairie pour authentifier des utilisateurs de votre site TrixCMS en NodeJS.
 
-<hr>
+## Prérequis
 
-> For use this library, you must copy this code, and modify it for your needs.
+Avant d'utiliser NAuth vous devez installer le plugin [Auth](https://trixcms.eu/marketplace/resource/plugin/6) sur votre CMS.
 
-### This librairy can be used to, for example, link your ElectronJS minecraft launcher to your users.
+## Installation
 
-#### You can download this library via npm.
+Vous pouvez installer la bibliothèque via npm :
+```bash
+npm install @trixcms/nauth
+```
 
-`npm i @trixcms/nauth`
+## Utilisation
+
+Tout d'abord vous devez définir une instance de NAuth. Le constructeur prendra en premier paramètre l'URL de votre site TrixCMS et en second paramètre facultatif, un timeout en miliseconde. :
+```javascript
+const NAuth = require('@trixcms/nauth')
+
+const auth = new NAuth('http://website.domain')
+```
+
+### Vérifier qu'un utilisateur existe
+
+Vous pouvez vérifier qu'un utilisateur existe avec la méthod `exists(username: string): Promise<boolean>` qui prendra le nom d'utilisateur en paramètre. La méthode vous retournera une promesse.
+```javascript
+const username = "username"
+
+auth.exists(username)
+    .then((exists) => {
+
+        if(exists) {
+            console.log('Le compte existe.')
+        } else {
+            console.log('Le compte n\'existe pas.')
+        }
+
+    })
+    .catch(err => {
+        console.error("Une erreur est survenue.")
+    })
+```
+
+### Récupérer les informations d'un utilisateur
+
+Vous pouvez vérifier qu'un utilisateur existe avec la méthod `login(username: string, password: string): Promise<Profile>` qui prendra le nom d'utilisateur et un mot de passe en paramètre. La méthode vous retournera une promesse avec le profile.
+
+```javascript
+const username = "username"
+const password = "password";
+
+auth.login(username, password)
+    .then((profile) => {
+        console.log(profile);
+    })
+    .catch(err => {
+        if(err.code === 'INVALID_CREDENTIALS') {
+            console.error('Identifiants invalides.')
+        } else {
+            console.error("Une erreur est survenue.")
+        }
+    })
+```
+
+Liste des propriétés disponnible dans le profile :
+
+| Propriété   | Type           | Description                                                   |
+| ----------- | -------------- | ------------------------------------------------------------- |
+| id          | string         | L'identifiant de l'utilisateur.                               |
+| uuid        | string         | UUID de l'utilisateur.                                        |
+| username    | string         | Nom d'utilisateur de l'utilisateur.                           |
+| email       | string         | Adresse email de l'utilisateur.                               |
+| money       | number         | Nombre de point boutique de l'utilisateur.                    |
+| hasAvatar   | boolean        | Est-ce que l'utilisateur à un avatar.                         |
+| isBanned    | boolean        | Est-ce que l'utilisateur est banni.                           |
+| banReason   | string \| null | La raison du bannissement si l'utilisateur est banni.         |
+| isConfirmed | boolean        | Est-ce que l'utilisateur à confirmé son adresse email.        |
+| hasTwoAuth  | boolean        | Est-ce que l'utilisateur à activé la double authentification. |
+| ranks       | Array<string>  | Liste des rangs de l'utilisateur.                             |
+| token       | string         | Token de l'utilisateur.                                       |
+| createdAt   | Date           | Date de création du compte.                                   |
+| updatedAt   | Date           | Date de dernière modification du compte.                      |
+
+### Example de code
 
 ```javascript
 const NAuth = require('./build/index')
 
 // On créer
-const auth = new NAuth("https://domain.website.extension/", 10000)
+const auth = new NAuth("https://example.domain/", 10000)
 
 // On vérifie que le compte "admin" existe.
 auth.exists("admin")
@@ -52,7 +124,7 @@ auth.exists("admin")
                 })
                 .catch((err) => {
                     if (err.code === 'INVALID_CREDENTIALS') {
-                        // Les identifiants du compte sont invalident
+                        // Les identifiants du compte sont invalides
                         console.log("Les identifiants du compte sont invalident.")
                     } else {
                         // Une autre erreur est survenue.
@@ -64,16 +136,12 @@ auth.exists("admin")
             console.log('Ce compte n\'existe pas')
         }
     })
+    .catch(err => {
+        console.log("Une erreur est survenue.")
+    })
 ```
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-> You can download this library via npm.
-
-`npm install nodeauth`
-
->>>>>>> 3ec76de... Update README.md
-=======
->>>>>>> 5e0776b... Update README.md
-> By NodeNXT For TrixCMS.
+[![Build Status](https://img.shields.io/github/forks/TrixCMS-V-2/NAuth.svg?style=for-the-badge)](https://github.com/TrixCMS-V-2/NAuth)
+[![Build Status](https://img.shields.io/github/stars/TrixCMS-V-2/NAuth.svg?style=for-the-badge)](https://github.com/TrixCMS-V-2/NAuth)
+[![License](https://img.shields.io/github/license/TrixCMS-V-2/NAuth.svg?style=for-the-badge)](https://github.com/TrixCMS-V-2/NAuth)
+[![Latest Stable Version](https://img.shields.io/npm/v/TrixCMS-V-2/NAuth.svg?style=for-the-badge)](https://www.npmjs.com/package/TrixCMS-V-2/NAuth)

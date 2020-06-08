@@ -1,21 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Profile = /** @class */ (function () {
-    function Profile(id, uuid, username, email, money, hasAvatar, isBanned, banReason, isConfirmed, hasTwoAuth, ranks, token, createdAt, updatedAt) {
-        this._id = id;
-        this._uuid = uuid;
-        this._username = username;
-        this._email = email;
-        this._money = money;
-        this._hasAvatar = hasAvatar;
-        this._isBanned = isBanned;
-        this._banReason = banReason;
-        this._isConfirmed = isConfirmed;
-        this._hasTwoAuth = hasTwoAuth;
-        this._ranks = ranks;
-        this._token = token;
-        this._createdAt = createdAt;
-        this._updatedAt = updatedAt;
+    function Profile(jsonProfile) {
+        this._id = jsonProfile.id;
+        this._uuid = jsonProfile.uuid;
+        this._username = jsonProfile.userName;
+        this._email = jsonProfile.userMail;
+        this._money = jsonProfile.money;
+        this._hasAvatar = jsonProfile.has_avatar;
+        this._isBanned = jsonProfile.accountBanned;
+        this._banReason = jsonProfile.banned_reason;
+        this._isConfirmed = jsonProfile.accountConfirmed;
+        this._hasTwoAuth = jsonProfile["2fa"];
+        this._ranks = jsonProfile.userRank.split(' | ');
+        this._token = jsonProfile.token;
+        this._createdAt = new Date(jsonProfile.created_at);
+        this._updatedAt = new Date(jsonProfile.updated_at);
     }
     Object.defineProperty(Profile.prototype, "id", {
         get: function () {

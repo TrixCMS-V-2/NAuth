@@ -14,21 +14,21 @@ export default class Profile {
     private _createdAt: Date
     private _updatedAt: Date
 
-    constructor (id: string, uuid: string, username: string, email: string, money: number, hasAvatar: boolean, isBanned: boolean, banReason: string | null, isConfirmed: boolean, hasTwoAuth: boolean, ranks: string[], token: string, createdAt: Date, updatedAt: Date) {
-        this._id = id
-        this._uuid = uuid
-        this._username = username
-        this._email = email
-        this._money = money
-        this._hasAvatar = hasAvatar
-        this._isBanned = isBanned
-        this._banReason = banReason
-        this._isConfirmed = isConfirmed
-        this._hasTwoAuth = hasTwoAuth
-        this._ranks = ranks
-        this._token = token
-        this._createdAt = createdAt
-        this._updatedAt = updatedAt
+    constructor (jsonProfile: JSONProfile) {
+        this._id = jsonProfile.id
+        this._uuid = jsonProfile.uuid
+        this._username = jsonProfile.userName
+        this._email = jsonProfile.userMail
+        this._money = jsonProfile.money
+        this._hasAvatar = jsonProfile.has_avatar
+        this._isBanned = jsonProfile.accountBanned
+        this._banReason = jsonProfile.banned_reason
+        this._isConfirmed = jsonProfile.accountConfirmed
+        this._hasTwoAuth = jsonProfile["2fa"]
+        this._ranks = jsonProfile.userRank.split(' | ')
+        this._token = jsonProfile.token
+        this._createdAt = new Date(jsonProfile.created_at)
+        this._updatedAt = new Date(jsonProfile.updated_at)
     }
 
     get id () {
