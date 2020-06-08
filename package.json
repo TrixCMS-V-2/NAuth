@@ -1,0 +1,66 @@
+{
+  "name": "@trixcms/nauth",
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+  "version": "1.0.8",
+=======
+  "version": "1.1.0",
+>>>>>>> 8229d74... 1.1.0
+=======
+  "version": "1.0.0",
+>>>>>>> ada85c6... change package.json version
+=======
+  "version": "1.0.1",
+>>>>>>> 353f155... 1.0.1
+=======
+  "version": "1.0.2",
+>>>>>>> 3827f48... 1.0.2
+=======
+  "version": "1.0.3",
+>>>>>>> 0cc3f2b... 1.0.3
+=======
+  "version": "1.0.4",
+>>>>>>> 0d45011... 1.0.4
+=======
+  "version": "1.0.5",
+>>>>>>> 8e46135... 1.0.5
+=======
+  "version": "1.0.6",
+>>>>>>> e82be82... 1.0.6
+=======
+  "version": "1.0.7",
+>>>>>>> dc40a1e... 1.0.7
+  "description": "NAuth is an library for using custom auth between nodejs and TrixCMS. (For exemple : For your modded minecraft project...)",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TrixCMS-V-2/NAuth"
+  },
+  "keywords": [
+    "NAuth",
+    "NodeJS",
+    "TrixCMS",
+    "Node"
+  ],
+  "author": "NodeNXT <nodenxt@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.9.5",
+    "@types/got": "^9.6.11",
+    "@types/node-rsa": "^1.0.0"
+  },
+  "dependencies": {
+    "got": "^11.3.0",
+    "node-rsa": "^1.0.8"
+  }
+}
