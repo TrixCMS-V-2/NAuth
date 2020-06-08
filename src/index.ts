@@ -40,10 +40,6 @@ export = class NAuth {
      */
     constructor (url: string, timeout: number = 10000) {
         this._url = new URL(url)
-<<<<<<< HEAD
-=======
-
->>>>>>> 6fdf887... fix index.ts
         this._timeout = timeout
     }
 
