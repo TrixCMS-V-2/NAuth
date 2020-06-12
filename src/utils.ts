@@ -2,7 +2,11 @@ import got from 'got'
 import NodeRSA from 'node-rsa'
 
 export default class Utils {
-
+    /**
+     * 
+     * @param url TrixCMS API URI
+     * @param timeout 
+     */
     public static async getPublicKey (url: URL, timeout: number): Promise<any> {
         const response = await got('api/auth/v1/public/key', {
             method: 'POST',
@@ -14,5 +18,4 @@ export default class Utils {
             encryptionScheme: 'pkcs1',
         })
     }
-
 }

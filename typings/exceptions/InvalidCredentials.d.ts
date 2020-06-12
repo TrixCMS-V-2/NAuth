@@ -1,4 +1,4 @@
 export default class InvalidCredentials extends Error {
-    code: string;
-    constructor();
+    code: string
+    constructor ()
 }

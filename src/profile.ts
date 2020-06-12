@@ -86,5 +86,4 @@ export default class Profile {
     get updatedAt () {
         return this._updatedAt
     }
-
 }

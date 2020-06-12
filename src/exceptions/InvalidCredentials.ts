@@ -6,5 +6,4 @@ export default class InvalidCredentials extends Error {
         this.message = "Invalid credentials"
         this.code = 'INVALID_CREDENTIALS'
     }
-
 }

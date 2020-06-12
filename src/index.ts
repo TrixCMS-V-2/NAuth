@@ -1,12 +1,10 @@
 import NodeRSA from 'node-rsa'
 import Utils from './utils'
-// import path from 'path'
 import got from 'got'
 import Profile from './profile'
 import InvalidCredentials from './exceptions/InvalidCredentials'
 
 export = class NAuth {
-
     private _url: URL
 
     private _timeout: number
@@ -85,5 +83,4 @@ export = class NAuth {
     get timeout () {
         return this._timeout
     }
-
 }

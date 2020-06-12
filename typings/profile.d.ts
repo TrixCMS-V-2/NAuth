@@ -1,4 +1,5 @@
 export default class Profile {
+    constructor (jsonProfile: JSONProfile)
     get id (): string
     get uuid (): string
     get username (): string
