@@ -1,4 +1,4 @@
-export default class InvalidCredentials extends Error {
+export default class InvalidCredentialsException extends Error {
     public code: string
 
     constructor () {

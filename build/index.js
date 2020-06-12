@@ -39,9 +39,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 var utils_1 = __importDefault(require("./utils"));
-var got_1 = __importDefault(require("got"));
 var profile_1 = __importDefault(require("./profile"));
-var InvalidCredentials_1 = __importDefault(require("./exceptions/InvalidCredentials"));
+var InvalidCredentialsException_1 = __importDefault(require("./exceptions/InvalidCredentialsException"));
 module.exports = (function () {
     function NAuth(url, timeout) {
         if (timeout === void 0) { timeout = 10000; }
@@ -71,32 +70,26 @@ module.exports = (function () {
         configurable: true,
         writable: true,
         value: function (username, password) {
-            var _a;
             return __awaiter(this, void 0, void 0, function () {
-                var response, json;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
+                var responseJSON, _a, _b;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
                         case 0:
                             if (!!this._publicKey) return [3, 2];
                             return [4, this.updatePublicKey()];
                         case 1:
-                            _b.sent();
-                            _b.label = 2;
-                        case 2: return [4, got_1.default('api/auth/v1/get', {
-                                method: 'POST',
-                                timeout: this._timeout,
-                                prefixUrl: this._url.toString(),
-                                json: {
-                                    data: (_a = this._publicKey) === null || _a === void 0 ? void 0 : _a.encrypt({ username: username, password: password }, 'base64'),
-                                },
-                            })];
+                            _c.sent();
+                            _c.label = 2;
+                        case 2:
+                            this._url.pathname = 'api/auth/v1/get';
+                            _b = (_a = JSON).parse;
+                            return [4, utils_1.default.postRequest(this._url, this.timeout, this._publicKey, { username: username, password: password })];
                         case 3:
-                            response = _b.sent();
-                            json = JSON.parse(response.body);
-                            if (json && json.exist) {
-                                return [2, new profile_1.default(json.profile)];
+                            responseJSON = _b.apply(_a, [(_c.sent()).body]);
+                            if (responseJSON && responseJSON.exist) {
+                                return [2, new profile_1.default(responseJSON.profile)];
                             }
-                            throw new InvalidCredentials_1.default();
+                            throw new InvalidCredentialsException_1.default();
                     }
                 });
             });
@@ -107,29 +100,23 @@ module.exports = (function () {
         configurable: true,
         writable: true,
         value: function (username) {
-            var _a;
             return __awaiter(this, void 0, void 0, function () {
-                var response, json;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
+                var responseJSON, _a, _b;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
                         case 0:
                             if (!!this._publicKey) return [3, 2];
                             return [4, this.updatePublicKey()];
                         case 1:
-                            _b.sent();
-                            _b.label = 2;
-                        case 2: return [4, got_1.default('api/auth/v1/check', {
-                                method: 'POST',
-                                timeout: this._timeout,
-                                prefixUrl: this._url.toString(),
-                                json: {
-                                    data: (_a = this._publicKey) === null || _a === void 0 ? void 0 : _a.encrypt(username, 'base64'),
-                                },
-                            })];
+                            _c.sent();
+                            _c.label = 2;
+                        case 2:
+                            this._url.pathname = 'api/auth/v1/check';
+                            _b = (_a = JSON).parse;
+                            return [4, utils_1.default.postRequest(this._url, this.timeout, this._publicKey, username)];
                         case 3:
-                            response = _b.sent();
-                            json = JSON.parse(response.body);
-                            return [2, !!(json && json.exist)];
+                            responseJSON = _b.apply(_a, [(_c.sent()).body]);
+                            return [2, !!(responseJSON && responseJSON.exist)];
                     }
                 });
             });

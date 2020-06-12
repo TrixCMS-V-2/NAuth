@@ -1,3 +1,5 @@
+import { JSONProfile } from "../typings/JSONProfile"
+
 export default class Profile {
     private _id: string
     private _uuid: string

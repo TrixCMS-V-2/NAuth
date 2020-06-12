@@ -13,9 +13,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var InvalidCredentials = (function (_super) {
-    __extends(InvalidCredentials, _super);
-    function InvalidCredentials() {
+var InvalidCredentialsException = (function (_super) {
+    __extends(InvalidCredentialsException, _super);
+    function InvalidCredentialsException() {
         var _this = _super.call(this) || this;
         Object.defineProperty(_this, "code", {
             enumerable: true,
@@ -27,6 +27,6 @@ var InvalidCredentials = (function (_super) {
         _this.code = 'INVALID_CREDENTIALS';
         return _this;
     }
-    return InvalidCredentials;
+    return InvalidCredentialsException;
 }(Error));
-exports.default = InvalidCredentials;
+exports.default = InvalidCredentialsException;

@@ -1,3 +1,4 @@
+import { JSONProfile } from "../typings/JSONProfile"
 export default class Profile {
     constructor (jsonProfile: JSONProfile)
     get id (): string

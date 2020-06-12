@@ -1,10 +1,10 @@
 
-declare interface JSONLogin {
+export interface JSONLogin {
     exist: boolean,
     profile: JSONProfile
 }
 
-declare interface JSONProfile {
+export interface JSONProfile {
     id: string,
     userName: string,
     userMail: string,

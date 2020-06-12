@@ -1,8 +1,8 @@
 import NodeRSA from 'node-rsa'
 import Utils from './utils'
-import got from 'got'
 import Profile from './profile'
-import InvalidCredentials from './exceptions/InvalidCredentials'
+import InvalidCredentialsException from './exceptions/InvalidCredentialsException'
+import { JSONLogin } from '../typings/JSONProfile'
 
 export = class NAuth {
     private _url: URL
@@ -31,22 +31,14 @@ export = class NAuth {
             await this.updatePublicKey()
         }
 
-        const response = await got('api/auth/v1/get', {
-            method: 'POST',
-            timeout: this._timeout,
-            prefixUrl: this._url.toString(),
-            json: {
-                data: this._publicKey?.encrypt({ username, password }, 'base64'),
-            },
-        })
+        this._url.pathname = 'api/auth/v1/get'
+        const responseJSON: JSONLogin = JSON.parse((await Utils.postRequest(this._url, this.timeout, this._publicKey, { username, password })).body)
 
-        const json: JSONLogin = JSON.parse(response.body)
-
-        if (json && json.exist) {
-            return new Profile(json.profile)
+        if (responseJSON && responseJSON.exist) {
+            return new Profile(responseJSON.profile)
         }
 
-        throw new InvalidCredentials()
+        throw new InvalidCredentialsException()
     }
 
     /**
@@ -58,18 +50,10 @@ export = class NAuth {
             await this.updatePublicKey()
         }
 
-        const response = await got('api/auth/v1/check', {
-            method: 'POST',
-            timeout: this._timeout,
-            prefixUrl: this._url.toString(),
-            json: {
-                data: this._publicKey?.encrypt(username, 'base64'),
-            },
-        })
+        this._url.pathname = 'api/auth/v1/check'
+        const responseJSON = JSON.parse((await Utils.postRequest(this._url, this.timeout, this._publicKey, username)).body)
 
-        const json = JSON.parse(response.body)
-
-        return !!(json && json.exist)
+        return !!(responseJSON && responseJSON.exist)
     }
 
     private async updatePublicKey () {

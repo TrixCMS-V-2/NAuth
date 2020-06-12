@@ -53,16 +53,35 @@ var Utils = (function () {
                 var response;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4, got_1.default('api/auth/v1/public/key', {
-                                method: 'POST',
-                                prefixUrl: url.toString(),
-                                timeout: timeout,
-                            })];
+                        case 0:
+                            url.pathname = 'api/auth/v1/public/key';
+                            return [4, this.postRequest(url, timeout)];
                         case 1:
                             response = _a.sent();
                             return [2, new node_rsa_1.default(response.body, "public", {
                                     encryptionScheme: 'pkcs1',
                                 })];
+                    }
+                });
+            });
+        }
+    });
+    Object.defineProperty(Utils, "postRequest", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function (url, timeout, publicKey, data) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4, got_1.default(url.toString(), {
+                                method: 'POST',
+                                timeout: timeout,
+                                json: data && publicKey ? {
+                                    data: publicKey.encrypt(data, 'base64'),
+                                } : {},
+                            })];
+                        case 1: return [2, _a.sent()];
                     }
                 });
             });

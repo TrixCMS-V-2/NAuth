@@ -27,7 +27,7 @@ const auth = new NAuth('http://website.domain')
 
 Vous pouvez vérifier qu'un utilisateur existe avec la méthod `exists(username: string): Promise<boolean>` qui prendra le nom d'utilisateur en paramètre. La méthode vous retournera une promesse.
 ```javascript
-const username = "username"
+const username = 'username'
 
 auth.exists(username)
     .then((exists) => {
@@ -39,8 +39,8 @@ auth.exists(username)
         }
 
     })
-    .catch(err => {
-        console.error("Une erreur est survenue.")
+    .catch(() => {
+        console.error('Une erreur est survenue.')
     })
 ```
 
@@ -49,8 +49,8 @@ auth.exists(username)
 Vous pouvez vérifier qu'un utilisateur existe avec la méthod `login(username: string, password: string): Promise<Profile>` qui prendra le nom d'utilisateur et un mot de passe en paramètre. La méthode vous retournera une promesse avec le profile.
 
 ```javascript
-const username = "username"
-const password = "password";
+const username = 'username'
+const password = 'password'
 
 auth.login(username, password)
     .then((profile) => {
@@ -60,7 +60,7 @@ auth.login(username, password)
         if(err.code === 'INVALID_CREDENTIALS') {
             console.error('Identifiants invalides.')
         } else {
-            console.error("Une erreur est survenue.")
+            console.error('Une erreur est survenue.')
         }
     })
 ```
@@ -79,7 +79,7 @@ Liste des propriétés disponnible dans le profile :
 | banReason   | string \| null | La raison du bannissement si l'utilisateur est banni.         |
 | isConfirmed | boolean        | Est-ce que l'utilisateur à confirmé son adresse email.        |
 | hasTwoAuth  | boolean        | Est-ce que l'utilisateur à activé la double authentification. |
-| ranks       | Array<string>  | Liste des rangs de l'utilisateur.                             |
+| ranks       | string\[\]     | Liste des rangs de l'utilisateur.                             |
 | token       | string         | Token de l'utilisateur.                                       |
 | createdAt   | Date           | Date de création du compte.                                   |
 | updatedAt   | Date           | Date de dernière modification du compte.                      |
@@ -90,16 +90,16 @@ Liste des propriétés disponnible dans le profile :
 const NAuth = require('./build/index')
 
 // On créer
-const auth = new NAuth("https://example.domain/", 10000)
+const auth = new NAuth('https://example.domain/', 10000)
 
-// On vérifie que le compte "admin" existe.
-auth.exists("admin")
+// On vérifie que le compte 'admin' existe.
+auth.exists('admin')
     .then((exists) => {
         if (exists) {
-            // Le compte "admin" existe !
+            // Le compte 'admin' existe !
 
             // On récupère le profile du compte grâce à la methode login.
-            auth.login("admin", "123456789")
+            auth.login('admin', '123456789')
                 .then((profile) => {
 
                     // faculatif
@@ -125,19 +125,19 @@ auth.exists("admin")
                 .catch((err) => {
                     if (err.code === 'INVALID_CREDENTIALS') {
                         // Les identifiants du compte sont invalides
-                        console.log("Les identifiants du compte sont invalident.")
+                        console.log('Les identifiants du compte sont invalident.')
                     } else {
                         // Une autre erreur est survenue.
-                        console.log("Une erreur est survenue.")
+                        console.log('Une erreur est survenue.')
                     }
                 })
         } else {
-            // Le compte "admin" n'existe pas !
+            // Le compte 'admin' n'existe pas !
             console.log('Ce compte n\'existe pas')
         }
     })
-    .catch(err => {
-        console.log("Une erreur est survenue.")
+    .catch(() => {
+        console.log('Une erreur est survenue.')
     })
 ```
 
