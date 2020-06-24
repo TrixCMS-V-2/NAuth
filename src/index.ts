@@ -4,27 +4,44 @@ import Profile from './profile'
 import InvalidCredentialsException from './exceptions/InvalidCredentialsException'
 import { JSONLogin } from '../typings/JSONProfile'
 
-export = class NAuth {
+/**
+ * TrixCMS authentification manager
+ */
+class NAuth {
+    /**
+     * Site URL where TrixCMS is hosted
+     * @private
+     */
     private _url: URL
 
+    /**
+     * @private
+     */
     private _timeout: number
 
+    /**
+     * RSA key used to encrypt data
+     * @private
+     */
     private _publicKey: NodeRSA | undefined
 
     /**
-     * 
-     * @param url Website url
-     * @param timeout
+     * @param {URL} url URL of your site where the CMS is hosted
+     * @param {number} timeout 
      */
-    constructor (url: string, timeout: number = 10000) {
+    constructor (url: string, timeout = 10000) {
         this._url = new URL(url)
         this._timeout = timeout
     }
 
     /**
-     * Login a user with his password
-     * @param username 
-     * @param password 
+     * Retrieve user information with their credentials
+     * @param {string} username 
+     * @param {string} password 
+     * 
+     * @returns {Promise<Profile>}
+     * 
+     * @throws {InvalidCredentialsException} Given bad credentials
      */
     public async login (username: string, password: string): Promise<Profile> {
         if (!this._publicKey) {
@@ -42,8 +59,10 @@ export = class NAuth {
     }
 
     /**
-     * Check if a username exists
-     * @param username 
+     * Checks that a user exists with his username
+     * @param {string} username 
+     * 
+     * @returns {Promise<boolean>}
      */
     public async exists (username: string): Promise<boolean> {
         if (!this._publicKey) {
@@ -56,15 +75,24 @@ export = class NAuth {
         return !!(responseJSON && responseJSON.exist)
     }
 
+    /**
+     * Request the site to retrieve the RSA key
+     * @private
+     */
     private async updatePublicKey () {
         this._publicKey = await Utils.getPublicKey(this.url, this.timeout)
     }
 
-    get url () {
+    /**
+     * Site URL where TrixCMS is hosted
+     */
+    get url (): URL {
         return this._url
     }
 
-    get timeout () {
+    get timeout (): number {
         return this._timeout
     }
 }
+
+export = NAuth

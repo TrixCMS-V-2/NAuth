@@ -1,21 +1,79 @@
 import { JSONProfile } from "../typings/JSONProfile"
 
 export default class Profile {
+    /**
+     * @private
+     */
     private _id: string
+
+    /**
+     * @private
+     */
     private _uuid: string
+
+    /**
+     * @private
+     */
     private _username: string
+
+    /**
+     * @private
+     */
     private _email: string
+
+    /**
+     * @private
+     */
     private _money: number
+
+    /**
+     * @private
+     */
     private _hasAvatar: boolean
+
+    /**
+     * @private
+     */
     private _isBanned: boolean
+
+    /**
+     * @private
+     */
     private _banReason: string | null
+
+    /**
+     * @private
+     */
     private _isConfirmed: boolean
+
+    /**
+     * @private
+     */
     private _hasTwoAuth: boolean
+
+    /**
+     * @private
+     */
     private _ranks: string[]
+
+    /**
+     * @private
+     */
     private _token: string
+
+    /**
+     * @private
+     */
     private _createdAt: Date
+
+    /**
+     * @private
+     */
     private _updatedAt: Date
 
+    /**
+     * @param {JSONProfile} jsonProfile Site API response when retrieving account information
+     */
     constructor (jsonProfile: JSONProfile) {
         this._id = jsonProfile.id
         this._uuid = jsonProfile.uuid
@@ -33,59 +91,59 @@ export default class Profile {
         this._updatedAt = new Date(jsonProfile.updated_at)
     }
 
-    get id () {
+    get id (): string {
         return this._id
     }
 
-    get uuid () {
+    get uuid (): string {
         return this._uuid
     }
 
-    get username () {
+    get username (): string {
         return this._username
     }
 
-    get email () {
+    get email (): string {
         return this._email
     }
 
-    get money () {
+    get money (): number {
         return this._money
     }
 
-    get hasAvatar () {
+    get hasAvatar (): boolean {
         return this._hasAvatar
     }
 
-    get isBanned () {
+    get isBanned (): boolean {
         return this._isBanned
     }
 
-    get banReason () {
+    get banReason (): string | null {
         return this._banReason
     }
 
-    get isConfirmed () {
+    get isConfirmed (): boolean {
         return this._isConfirmed
     }
 
-    get hasTwoAuth () {
+    get hasTwoAuth (): boolean {
         return this._hasTwoAuth
     }
 
-    get ranks () {
+    get ranks (): string[] {
         return this._ranks
     }
 
-    get token () {
+    get token (): string {
         return this._token
     }
 
-    get createdAt () {
+    get createdAt (): Date {
         return this._createdAt
     }
 
-    get updatedAt () {
+    get updatedAt (): Date {
         return this._updatedAt
     }
 }

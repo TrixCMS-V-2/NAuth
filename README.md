@@ -1,22 +1,21 @@
 # NAuth
 
+NAuth is a library to authenticate users of your TrixCMS site in NodeJS.
 
-NAuth est une librairie pour authentifier des utilisateurs de votre site TrixCMS en NodeJS.
+## Prerequisites
 
-## Prérequis
-
-Avant d'utiliser NAuth vous devez installer le plugin [Auth](https://trixcms.eu/marketplace/resource/plugin/6) sur votre CMS.
+Before using NAuth you must install the [Auth](https://trixcms.eu/marketplace/resource/plugin/6) plugin on your CMS
 
 ## Installation
 
-Vous pouvez installer la bibliothèque via npm :
+You can install the library via npm:
 ```bash
 npm install @trixcms/nauth
 ```
 
-## Utilisation
+## How to use ?
 
-Tout d'abord vous devez définir une instance de NAuth. Le constructeur prendra en premier paramètre l'URL de votre site TrixCMS et en second paramètre facultatif, un timeout en miliseconde. :
+First you need to define an instance of NAuth. The manufacturer will take the URL of your TrixCMS site as the first parameter and an optional second parameter, a timeout in milliseconds:
 ```javascript
 const NAuth = require('@trixcms/nauth')
 
@@ -25,7 +24,7 @@ const auth = new NAuth('http://website.domain')
 
 ### Vérifier qu'un utilisateur existe
 
-Vous pouvez vérifier qu'un utilisateur existe avec la méthod `exists(username: string): Promise<boolean>` qui prendra le nom d'utilisateur en paramètre. La méthode vous retournera une promesse.
+You can verify that a user exists with the `exists (username: string): Promise <boolean>` method which will take the username as a parameter. The method will return a promise to you.
 ```javascript
 const username = 'username'
 
@@ -33,20 +32,20 @@ auth.exists(username)
     .then((exists) => {
 
         if(exists) {
-            console.log('Le compte existe.')
+            console.log('The account exists.')
         } else {
-            console.log('Le compte n\'existe pas.')
+            console.log('The account does not exists.')
         }
 
     })
     .catch(() => {
-        console.error('Une erreur est survenue.')
+        console.error('An error has occurred.')
     })
 ```
 
-### Récupérer les informations d'un utilisateur
+### Retrieve user information
 
-Vous pouvez vérifier qu'un utilisateur existe avec la méthod `login(username: string, password: string): Promise<Profile>` qui prendra le nom d'utilisateur et un mot de passe en paramètre. La méthode vous retournera une promesse avec le profile.
+You can verify that a user exists with the `login (username: string, password: string): Promise <Profile>` method which will take the username and password as parameters. The method will return you a promise with the profile:
 
 ```javascript
 const username = 'username'
@@ -58,86 +57,86 @@ auth.login(username, password)
     })
     .catch(err => {
         if(err.code === 'INVALID_CREDENTIALS') {
-            console.error('Identifiants invalides.')
+            console.error('Bad credentials')
         } else {
-            console.error('Une erreur est survenue.')
+            console.error('An error has occurred.')
         }
     })
 ```
 
-Liste des propriétés disponnible dans le profile :
+List of properties available in the profile:
 
-| Propriété   | Type           | Description                                                   |
-| ----------- | -------------- | ------------------------------------------------------------- |
-| id          | string         | L'identifiant de l'utilisateur.                               |
-| uuid        | string         | UUID de l'utilisateur.                                        |
-| username    | string         | Nom d'utilisateur de l'utilisateur.                           |
-| email       | string         | Adresse email de l'utilisateur.                               |
-| money       | number         | Nombre de point boutique de l'utilisateur.                    |
-| hasAvatar   | boolean        | Est-ce que l'utilisateur à un avatar.                         |
-| isBanned    | boolean        | Est-ce que l'utilisateur est banni.                           |
-| banReason   | string \| null | La raison du bannissement si l'utilisateur est banni.         |
-| isConfirmed | boolean        | Est-ce que l'utilisateur à confirmé son adresse email.        |
-| hasTwoAuth  | boolean        | Est-ce que l'utilisateur à activé la double authentification. |
-| ranks       | string\[\]     | Liste des rangs de l'utilisateur.                             |
-| token       | string         | Token de l'utilisateur.                                       |
-| createdAt   | Date           | Date de création du compte.                                   |
-| updatedAt   | Date           | Date de dernière modification du compte.                      |
+| Property    | Type           | Description                                   |
+| ----------- | -------------- | --------------------------------------------- |
+| id          | string         | The user ID.                                  |
+| uuid        | string         | User UUID.                                    |
+| username    | string         | Username of the user.                         |
+| email       | string         | User email address.                           |
+| money       | number         | Number of user store points.                  |
+| hasAvatar   | boolean        | Does the user have an avatar.                 |
+| isBanned    | boolean        | Is the user banned.                           |
+| banReason   | string \| null | The reason for the ban if the user is banned. |
+| isConfirmed | boolean        | Has the user confirmed their email address.   |
+| hasTwoAuth  | boolean        | Has the user enabled dual authentication.     |
+| ranks       | string\[\]     | List of user ranks.                           |
+| token       | string         | User token.                                   |
+| createdAt   | Date           | Date of creation of the account.              |
+| updatedAt   | Date           | Date of last modification of the account.     |
 
-### Example de code
+### Code example
 
 ```javascript
 const NAuth = require('./build/index')
 
-// On créer
+// We create an instance of NAuth
 const auth = new NAuth('https://example.domain/', 10000)
 
-// On vérifie que le compte 'admin' existe.
+// We verify that the 'admin' account exists.
 auth.exists('admin')
     .then((exists) => {
         if (exists) {
-            // Le compte 'admin' existe !
+            // The 'admin' account exists!
 
-            // On récupère le profile du compte grâce à la methode login.
+            // We retrieve the account profile using the login method.
             auth.login('admin', '123456789')
                 .then((profile) => {
 
-                    // faculatif
+                    // optional
                     if (profile.isBanned) {
-                        // Ce compte est banni
-                        return console.log('Ce compte est banni.')
+                        // This account is banned
+                        return console.log('This account is banned')
                     }
 
-                    // faculatif
+                    // optional
                     if (!profile.isConfirmed) {
-                        // Ce compte à validé son addresse email.
-                        return console.log('Ce compte n\'est pas confirmé')
+                        // This account has not validated its email address.
+                        return console.log('This account has not validated its email address.')
                     }
 
-                    // Vous pouvez récupérer les informations sur le compte :
+                    // You can retrieve account information:
                     const uuid = profile.uuid
                     const username = profile.username
                     const email = profile.email
                     const token = profile.token
 
-                    console.log('Voici les informations sur le compte admin:', uuid, username, email, token)
+                    console.log('Here is the information about the admin account:', uuid, username, email, token)
                 })
                 .catch((err) => {
                     if (err.code === 'INVALID_CREDENTIALS') {
-                        // Les identifiants du compte sont invalides
-                        console.log('Les identifiants du compte sont invalident.')
+                        // Account credentials are invalid.
+                        console.log('Account credentials are invalid.')
                     } else {
-                        // Une autre erreur est survenue.
-                        console.log('Une erreur est survenue.')
+                        // An error has occurred.
+                        console.log('An error has occurred.')
                     }
                 })
         } else {
-            // Le compte 'admin' n'existe pas !
-            console.log('Ce compte n\'existe pas')
+            // The 'admin' account does not exist!
+            console.log('This account does not exist')
         }
     })
     .catch(() => {
-        console.log('Une erreur est survenue.')
+        console.log('An error has occurred.')
     })
 ```
 

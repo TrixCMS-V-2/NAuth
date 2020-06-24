@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var InvalidCredentialsException = (function (_super) {
+var InvalidCredentialsException = /** @class */ (function (_super) {
     __extends(InvalidCredentialsException, _super);
     function InvalidCredentialsException() {
         var _this = _super.call(this) || this;

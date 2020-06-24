@@ -41,9 +41,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var got_1 = __importDefault(require("got"));
 var node_rsa_1 = __importDefault(require("node-rsa"));
-var Utils = (function () {
+/**
+ * A simple utility class
+ */
+var Utils = /** @class */ (function () {
     function Utils() {
     }
+    /**
+     * Request the site to retrieve the RSA key
+     * @param {URL} url TrixCMS API URI
+     * @param {number} timeout
+     *
+     * @returns {Promise<NodeRSA>}
+     */
     Object.defineProperty(Utils, "getPublicKey", {
         enumerable: false,
         configurable: true,
@@ -55,10 +65,10 @@ var Utils = (function () {
                     switch (_a.label) {
                         case 0:
                             url.pathname = 'api/auth/v1/public/key';
-                            return [4, this.postRequest(url, timeout)];
+                            return [4 /*yield*/, this.postRequest(url, timeout)];
                         case 1:
                             response = _a.sent();
-                            return [2, new node_rsa_1.default(response.body, "public", {
+                            return [2 /*return*/, new node_rsa_1.default(response.body, "public", {
                                     encryptionScheme: 'pkcs1',
                                 })];
                     }
@@ -66,6 +76,15 @@ var Utils = (function () {
             });
         }
     });
+    /**
+     * Make a request to any website
+     * @param {URL} url Any Website URL
+     * @param {number} timeout
+     * @param {NodeRSA} publicKey RSA public key
+     * @param {NodeRSA.Data} data Encrypted data
+     *
+     * @returns {Response<string>}
+     */
     Object.defineProperty(Utils, "postRequest", {
         enumerable: false,
         configurable: true,
@@ -74,14 +93,14 @@ var Utils = (function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4, got_1.default(url.toString(), {
+                        case 0: return [4 /*yield*/, got_1.default(url.toString(), {
                                 method: 'POST',
                                 timeout: timeout,
                                 json: data && publicKey ? {
                                     data: publicKey.encrypt(data, 'base64'),
                                 } : {},
                             })];
-                        case 1: return [2, _a.sent()];
+                        case 1: return [2 /*return*/, _a.sent()];
                     }
                 });
             });

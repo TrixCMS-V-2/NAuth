@@ -1,6 +1,6 @@
 {
   "name": "@trixcms/nauth",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "NAuth is an library for using custom auth between nodejs and TrixCMS. (For exemple : For your modded minecraft project...)",
   "main": "build/index.js",
   "scripts": {
@@ -23,9 +23,12 @@
   "author": "NodeNXT <nodenxt@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^3.9.5",
     "@types/got": "^9.6.11",
-    "@types/node-rsa": "^1.0.0"
+    "@types/node-rsa": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
+    "eslint": "^7.3.1",
+    "typescript": "^3.9.5"
   },
   "dependencies": {
     "got": "^11.3.0",

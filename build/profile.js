@@ -1,85 +1,130 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Profile = (function () {
+var Profile = /** @class */ (function () {
+    /**
+     * @param {JSONProfile} jsonProfile Site API response when retrieving account information
+     */
     function Profile(jsonProfile) {
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_id", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_uuid", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_username", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_email", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_money", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_hasAvatar", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_isBanned", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_banReason", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_isConfirmed", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_hasTwoAuth", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_ranks", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_token", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_createdAt", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_updatedAt", {
             enumerable: true,
             configurable: true,

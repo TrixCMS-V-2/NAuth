@@ -41,21 +41,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var utils_1 = __importDefault(require("./utils"));
 var profile_1 = __importDefault(require("./profile"));
 var InvalidCredentialsException_1 = __importDefault(require("./exceptions/InvalidCredentialsException"));
-module.exports = (function () {
+/**
+ * TrixCMS authentification manager
+ */
+var NAuth = /** @class */ (function () {
+    /**
+     * @param {URL} url URL of your site where the CMS is hosted
+     * @param {number} timeout
+     */
     function NAuth(url, timeout) {
         if (timeout === void 0) { timeout = 10000; }
+        /**
+         * Site URL where TrixCMS is hosted
+         * @private
+         */
         Object.defineProperty(this, "_url", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * @private
+         */
         Object.defineProperty(this, "_timeout", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: void 0
         });
+        /**
+         * RSA key used to encrypt data
+         * @private
+         */
         Object.defineProperty(this, "_publicKey", {
             enumerable: true,
             configurable: true,
@@ -65,6 +83,15 @@ module.exports = (function () {
         this._url = new URL(url);
         this._timeout = timeout;
     }
+    /**
+     * Retrieve user information with their credentials
+     * @param {string} username
+     * @param {string} password
+     *
+     * @returns {Promise<Profile>}
+     *
+     * @throws {InvalidCredentialsException} Given bad credentials
+     */
     Object.defineProperty(NAuth.prototype, "login", {
         enumerable: false,
         configurable: true,
@@ -75,19 +102,19 @@ module.exports = (function () {
                 return __generator(this, function (_c) {
                     switch (_c.label) {
                         case 0:
-                            if (!!this._publicKey) return [3, 2];
-                            return [4, this.updatePublicKey()];
+                            if (!!this._publicKey) return [3 /*break*/, 2];
+                            return [4 /*yield*/, this.updatePublicKey()];
                         case 1:
                             _c.sent();
                             _c.label = 2;
                         case 2:
                             this._url.pathname = 'api/auth/v1/get';
                             _b = (_a = JSON).parse;
-                            return [4, utils_1.default.postRequest(this._url, this.timeout, this._publicKey, { username: username, password: password })];
+                            return [4 /*yield*/, utils_1.default.postRequest(this._url, this.timeout, this._publicKey, { username: username, password: password })];
                         case 3:
                             responseJSON = _b.apply(_a, [(_c.sent()).body]);
                             if (responseJSON && responseJSON.exist) {
-                                return [2, new profile_1.default(responseJSON.profile)];
+                                return [2 /*return*/, new profile_1.default(responseJSON.profile)];
                             }
                             throw new InvalidCredentialsException_1.default();
                     }
@@ -95,6 +122,12 @@ module.exports = (function () {
             });
         }
     });
+    /**
+     * Checks that a user exists with his username
+     * @param {string} username
+     *
+     * @returns {Promise<boolean>}
+     */
     Object.defineProperty(NAuth.prototype, "exists", {
         enumerable: false,
         configurable: true,
@@ -105,23 +138,27 @@ module.exports = (function () {
                 return __generator(this, function (_c) {
                     switch (_c.label) {
                         case 0:
-                            if (!!this._publicKey) return [3, 2];
-                            return [4, this.updatePublicKey()];
+                            if (!!this._publicKey) return [3 /*break*/, 2];
+                            return [4 /*yield*/, this.updatePublicKey()];
                         case 1:
                             _c.sent();
                             _c.label = 2;
                         case 2:
                             this._url.pathname = 'api/auth/v1/check';
                             _b = (_a = JSON).parse;
-                            return [4, utils_1.default.postRequest(this._url, this.timeout, this._publicKey, username)];
+                            return [4 /*yield*/, utils_1.default.postRequest(this._url, this.timeout, this._publicKey, username)];
                         case 3:
                             responseJSON = _b.apply(_a, [(_c.sent()).body]);
-                            return [2, !!(responseJSON && responseJSON.exist)];
+                            return [2 /*return*/, !!(responseJSON && responseJSON.exist)];
                     }
                 });
             });
         }
     });
+    /**
+     * Request the site to retrieve the RSA key
+     * @private
+     */
     Object.defineProperty(NAuth.prototype, "updatePublicKey", {
         enumerable: false,
         configurable: true,
@@ -133,16 +170,19 @@ module.exports = (function () {
                     switch (_b.label) {
                         case 0:
                             _a = this;
-                            return [4, utils_1.default.getPublicKey(this.url, this.timeout)];
+                            return [4 /*yield*/, utils_1.default.getPublicKey(this.url, this.timeout)];
                         case 1:
                             _a._publicKey = _b.sent();
-                            return [2];
+                            return [2 /*return*/];
                     }
                 });
             });
         }
     });
     Object.defineProperty(NAuth.prototype, "url", {
+        /**
+         * Site URL where TrixCMS is hosted
+         */
         get: function () {
             return this._url;
         },
@@ -158,3 +198,4 @@ module.exports = (function () {
     });
     return NAuth;
 }());
+module.exports = NAuth;
