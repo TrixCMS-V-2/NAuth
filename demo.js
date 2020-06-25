@@ -1,4 +1,4 @@
-const NAuth = require('./build/index')
+const NAuth = require('@trixcms/nauth')
 
 // We create an instance of NAuth
 const auth = new NAuth('https://example.domain/', 10000)

@@ -86,7 +86,7 @@ List of properties available in the profile:
 ### Code example
 
 ```javascript
-const NAuth = require('./build/index')
+const NAuth = require('@trixcms/nauth')
 
 // We create an instance of NAuth
 const auth = new NAuth('https://example.domain/', 10000)

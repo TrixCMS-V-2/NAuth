@@ -1,6 +1,6 @@
 {
   "name": "@trixcms/nauth",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "NAuth is an library for using custom auth between nodejs and TrixCMS. (For exemple : For your modded minecraft project...)",
   "main": "build/index.js",
   "scripts": {
