@@ -22,7 +22,7 @@ const NAuth = require('@trixcms/nauth')
 const auth = new NAuth('http://website.domain')
 ```
 
-### Vérifier qu'un utilisateur existe
+### Verify that a user exist
 
 You can verify that a user exists with the `exists (username: string): Promise <boolean>` method which will take the username as a parameter. The method will return a promise to you.
 ```javascript
