@@ -140,7 +140,8 @@ auth.exists('admin')
     })
 ```
 
-[![Build Status](https://img.shields.io/github/forks/TrixCMS-V-2/NAuth.svg?style=for-the-badge)](https://github.com/TrixCMS-V-2/NAuth)
-[![Build Status](https://img.shields.io/github/stars/TrixCMS-V-2/NAuth.svg?style=for-the-badge)](https://github.com/TrixCMS-V-2/NAuth)
-[![License](https://img.shields.io/github/license/TrixCMS-V-2/NAuth.svg?style=for-the-badge)](https://github.com/TrixCMS-V-2/NAuth)
-[![Latest Stable Version](https://img.shields.io/npm/v/TrixCMS-V-2/NAuth.svg?style=for-the-badge)](https://www.npmjs.com/package/TrixCMS-V-2/NAuth)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/TrixCMS-V-2/NAuth?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/TrixCMS-V-2/NAuth?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/TrixCMS-V-2/NAuth?style=for-the-badge)
+![NPM](https://img.shields.io/npm/l/@trixcms/nauth?style=for-the-badge)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/TrixCMS-V-2/NAuth?style=for-the-badge)
