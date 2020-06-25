@@ -1,53 +1,52 @@
 const NAuth = require('./build/index')
 
-// On créer
-const auth = new NAuth("https://example.com/", 10000)
+// We create an instance of NAuth
+const auth = new NAuth('https://example.domain/', 10000)
 
-// On vérifie que le compte "admin" existe.
-auth.exists("admin")
+// We verify that the 'admin' account exists.
+auth.exists('admin')
     .then((exists) => {
         if (exists) {
-            // Le compte "admin" existe !
+            // The 'admin' account exists!
 
-            // On récupère le profile du compte grâce à la methode login.
-            auth.login("admin", "123456789")
+            // We retrieve the account profile using the login method.
+            auth.login('admin', '123456789')
                 .then((profile) => {
 
-                    // faculatif
+                    // optional
                     if (profile.isBanned) {
-                        // Ce compte est banni
-                        return console.log('Ce compte est banni.')
+                        // This account is banned
+                        return console.log('This account is banned')
                     }
 
-                    // faculatif
+                    // optional
                     if (!profile.isConfirmed) {
-                        // Ce compte à validé son addresse email.
-                        return console.log('Ce compte n\'est pas confirmé')
+                        // This account has not validated its email address.
+                        return console.log('This account has not validated its email address.')
                     }
 
-
-                    // Vous pouvez récupérer les informations sur le compte :
+                    // You can retrieve account information:
                     const uuid = profile.uuid
                     const username = profile.username
                     const email = profile.email
                     const token = profile.token
 
-                    console.log('Voici les informations sur le compte admin:', uuid, username, email, token)
+                    console.log('Here is the information about the admin account:', uuid, username, email, token)
                 })
                 .catch((err) => {
                     if (err.code === 'INVALID_CREDENTIALS') {
-                        // Les identifiants du compte sont invalides
-                        console.log("Les identifiants du compte sont invalident.")
+                        // Account credentials are invalid.
+                        console.log('Account credentials are invalid.')
                     } else {
-                        // Une autre erreur est survenue.
-                        console.log("Une erreur est survenue.")
+                        // An error has occurred.
+                        console.log('An error has occurred.')
                     }
                 })
         } else {
-            // Le compte "admin" n'existe pas !
-            console.log('Ce compte n\'existe pas')
+            // The 'admin' account does not exist!
+            console.log('This account does not exist')
         }
     })
-    .catch(err => {
-        console.log("Une erreur est survenue.")
+    .catch(() => {
+        console.log('An error has occurred.')
     })
