@@ -157,7 +157,6 @@ var NAuth = /** @class */ (function () {
     });
     /**
      * Request the site to retrieve the RSA key
-     * @private
      */
     Object.defineProperty(NAuth.prototype, "updatePublicKey", {
         enumerable: false,

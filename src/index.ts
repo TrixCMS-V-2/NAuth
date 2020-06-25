@@ -77,7 +77,6 @@ class NAuth {
 
     /**
      * Request the site to retrieve the RSA key
-     * @private
      */
     private async updatePublicKey () {
         this._publicKey = await Utils.getPublicKey(this.url, this.timeout)
