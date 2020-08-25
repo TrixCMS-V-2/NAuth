@@ -4,7 +4,7 @@ NAuth is a library to authenticate users of your TrixCMS site in NodeJS.
 
 ## Prerequisites
 
-Before using NAuth you must install the [Auth](https://trixcms.eu/marketplace/resource/plugin/6) plugin on your CMS
+Before using NAuth you must install the [Auth](https://trixcms.eu/marketplace/resource/plugin/7) plugin on your CMS
 
 ## Installation
 
